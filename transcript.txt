@@ -10,3 +10,6 @@ Semester 2:
 {Advanced Mathematics,	A,	3}
 {Geography,				C, 	4}
 {Economics,				A,	2}
+
+Semester 3:
+{Quantum Mechanics,		A+,	2}
