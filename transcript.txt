@@ -1,0 +1,12 @@
+Semester 1:
+{English,		B+,	4}
+{Mathematics,	A,	4}
+{Physics,		C, 	3}
+{Chemistry,		A,	3}
+{Biology,		B,	3}
+
+Semester 2:
+{Technical Drawing,		B+,	2}
+{Advanced Mathematics,	A,	3}
+{Geography,				C, 	4}
+{Economics,				A,	2}
