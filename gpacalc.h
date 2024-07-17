@@ -49,6 +49,7 @@ double to2decimals(double value)
 }
 
 /**
+ * printGpa: prints the resulting GPA and CGPA
  * gpa - data structure holding semester & gpa of students
  * semesters - amount of semesters taken
  */
@@ -71,31 +72,35 @@ int calc_gpa(std::string grades)
 	// open file grades
 	std::ifstream file(grades);
 
-	// string to store each line in file
-	std::string line;
-
 	// A 2d vector to hold grades for 8 semesters max {semester, gpa}
-	std::vector<std::vector<double>> gpa(8, std::vector<double>(2, 0));
+	std::vector<std::vector<double>> gpa(8, std::vector<double>(2, 0.0));
 
+	std::string line;
 	if (file.is_open())
 	{
 		int semester = 0;
 		std::string grade;
 		int creditHr = 0;
 		int totalCreditHrs = 0;
-		int index = -1;
+		double sumOfGradePoints = 0;
+		int index = 1;
 
 		while (getline(file, line))
 		{
 			if (line.empty())
-				getline(file, line); // skip empty lines
+				continue; // skip empty lines
 
 			if (line.back() == ':')
 			{
+				if (sumOfGradePoints > 0 && totalCreditHrs > 0)
+				{
+					sumOfGradePoints = 0;
+					totalCreditHrs = 0;
+				}
 				semester = line[line.size() - 2] - '0';
-				index += 1;
-				gpa[index][0] = semester;
-				getline(file, line); // go to next line
+				if (semester > 0 && semester < 8)
+					gpa[semester - 1][0] = index;
+				index++;
 				continue;
 			}
 
@@ -103,8 +108,7 @@ int calc_gpa(std::string grades)
 			std::istringstream stream(line);
 			std::string token;
 
-			int i = 0;
-			while (i < 3)
+			for (int i = 0; i < 3; ++i)
 			{
 				getline(stream, token, ',');
 				token.erase(std::remove_if(token.begin(), token.end(), ::isspace), token.end());
@@ -117,9 +121,11 @@ int calc_gpa(std::string grades)
 					creditHr = std::stoi(token);
 					totalCreditHrs += creditHr;
 				}
-				i++;
 			}
-			gpa[index][1] += gradePoint(grade, creditHr) / totalCreditHrs;
+			sumOfGradePoints += gradePoint(grade, creditHr);
+			// The gpa in gpa[semester - 1][1] will keep updating until the
+			// next semester
+			gpa[semester - 1][1] = sumOfGradePoints / totalCreditHrs;
 		}
 
 		file.close();
