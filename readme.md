@@ -24,3 +24,22 @@ The CGPA Calculator in C++ is a program designed to compute a student’s Cumula
 	45% to less than 50% 	C 	2.25
 	40% to less than 45% 	D 	2.00
 	<40% Less than 40% 	F 	0.00
+
+
+### Usage
+	$ g++ main.cpp -o c_calc
+	$ ./c_calc transcript.txt
+
+### Output
+
+	GPA
+	Semester 1 : 6.53
+	Semester 2 : 1.49
+	Semester 0 : 0.00
+	Semester 0 : 0.00
+	Semester 0 : 0.00
+	Semester 0 : 0.00
+	Semester 0 : 0.00
+	Semester 0 : 0.00
+
+	CGPA: 4.01
